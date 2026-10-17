@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="EcoScan identifica materiais recicláveis usando a câmera do dispositivo." />
+    <title>EcoScan | Identificação inteligente de resíduos</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles/main.css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.22.0/dist/tf.min.js" defer></script>
+    <script src="https://docs.opencv.org/4.x/opencv.js" defer></script>
+    <script src="scripts/main.js" defer></script>
+  </head>
+  <body>
+    <header class="barra-superior">
+      <a class="marca" href="#inicio" aria-label="EcoScan início">
+        <span class="simbolo-marca" aria-hidden="true">✳</span>
+        <span>Eco<span>Scan</span></span>
+      </a>
+      <nav class="navegacao" aria-label="Navegação principal">
+        <a class="active" href="#scanner">Scanner</a>
+        <a href="#como-funciona">Como funciona</a>
+        <a href="#sobre">Sobre o projeto</a>
+      </nav>
+      <span class="indicador-status"><span class="ponto-status"></span> IA local</span>
+    </header>
+
+    <main id="inicio">
+      <section class="apresentacao" id="scanner">
+        <div class="texto-apresentacao">
+          <p class="rotulo-destaque"><span></span> tecnologia para um descarte melhor</p>
+          <h1>Descubra onde<br /><em>cada resíduo</em> pertence.</h1>
+          <p class="texto-apresentacao">Aponte a câmera para um objeto e deixe o EcoScan identificar o material predominante em segundos.</p>
+          <div class="estatisticas-apresentacao">
+            <div><strong>05</strong><span>categorias</span></div>
+            <div><strong>100%</strong><span>no navegador</span></div>
+            <div><strong>0</strong><span>envios de imagem</span></div>
+          </div>
+        </div>
+
+        <div class="cartao-scanner" aria-label="Scanner de materiais">
+          <div class="linha-superior-cartao"><span>ANÁLISE DE MATERIAL</span><span id="scanStatus">AGUARDANDO</span></div>
+          <div class="quadro-camera" id="cameraFrame">
+            <video id="video" autoplay playsinline muted></video>
+            <canvas id="canvas" hidden></canvas>
+            <div class="mensagem-camera" id="cameraPlaceholder">
+              <div class="icone-mensagem">⌁</div>
+              <strong>Sua câmera está pronta</strong>
+              <span>Posicione um objeto dentro da moldura</span>
+            </div>
+            <div class="cantos-leitura" aria-hidden="true"></div>
+            <div class="linha-leitura" id="scanLine" hidden></div>
+            <div class="indicador-camera" id="cameraBadge">CÂMERA DESATIVADA</div>
+          </div>
+          <div class="acoes-scanner">
+            <button class="botao-principal" id="startCamera"><span>◉</span> Ativar câmera</button>
+            <label class="botao-secundario" for="imageInput"><span>↑</span> Enviar imagem</label>
+            <input id="imageInput" type="file" accept="image/*" hidden />
+          </div>
+          <p class="nota-privacidade"><span>⌁</span> A imagem é processada localmente no seu navegador.</p>
+        </div>
+      </section>
+
+      <section class="secao-resultado" id="resultSection" aria-live="polite">
+        <div class="rotulo-secao">RESULTADO DA LEITURA</div>
+        <div class="grade-resultado">
+          <div class="resultado-principal">
+            <div class="icone-material" id="materialIcon">?</div>
+            <div><p class="rotulo-suave">MATERIAL PROVÁVEL</p><h2 id="materialName">Pronto para analisar</h2><p id="materialHint">Ative a câmera ou envie uma foto para começar.</p></div>
+          </div>
+          <div class="confianca"><div class="cabecalho-confianca"><span>CONFIANÇA</span><strong id="confidenceValue">—</strong></div><div class="barra-progresso"><span id="confidenceBar"></span></div><small id="confidenceHint">Nenhuma análise realizada</small></div>
+          <div class="descarte"><span class="rotulo-descarte">DESCARTE SUGERIDO</span><strong id="disposalValue">—</strong><span id="disposalHint">O resultado aparecerá aqui</span></div>
+        </div>
+      </section>
+
+      <section class="secao-como-funciona" id="como-funciona">
+        <div><p class="rotulo-destaque"><span></span> simples por natureza</p><h2>Do objeto ao descarte<br /><em>em três passos.</em></h2></div>
+        <div class="passos"><article><span class="numero-passo">01</span><h3>Aponte</h3><p>Enquadre o objeto com boa luz e mantenha-o dentro da moldura.</p></article><article><span class="numero-passo">02</span><h3>Analise</h3><p>O modelo visual compara textura, brilho, transparência e forma.</p></article><article><span class="numero-passo">03</span><h3>Separe</h3><p>Confira a sugestão de descarte e encaminhe o material corretamente.</p></article></div>
+      </section>
+
+      <section class="secao-sobre" id="sobre"><div class="cartao-sobre"><span class="simbolo-sobre">♻</span><div><p class="rotulo-destaque"><span></span> sobre o ecoscan</p><h2>Tecnologia que ensina<br />a cuidar do <em>futuro.</em></h2><p>O EcoScan é um projeto educativo de visão computacional para apoiar a separação inicial de resíduos. A classificação é uma estimativa e objetos mistos ou imagens pouco nítidas podem exigir uma nova tentativa.</p></div></div></section>
+    </main>
+    <footer><span>EcoScan © 2026</span><span>Plástico · Metal · Vidro · Papel · Papelão</span></footer>
+  </body>
+</html>
