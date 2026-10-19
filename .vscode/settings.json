@@ -1,0 +1,14 @@
+{
+  // Define o diretório que o Live Server deve servir como raiz do site.
+  "liveServer.settings.root": "/src",
+
+  // Faz o Prettier ser o formatador principal do projeto.
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+
+  // Formata o arquivo automaticamente ao salvá-lo.
+  "editor.formatOnSave": true,
+
+  // Mantém a indentação do projeto com dois espaços.
+  "editor.tabSize": 2,
+  "editor.insertSpaces": true
+}

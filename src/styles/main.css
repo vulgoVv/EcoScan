@@ -1,3 +1,4 @@
+/* Variáveis globais: centralizam as cores para facilitar futuras alterações visuais. */
 :root  {
     --ink: #15221d;
     --muted: #6b7a72;
@@ -9,6 +10,7 @@
     --white: #fff
 }
 
+/* Garante que largura e altura dos elementos incluam bordas e espaçamentos. */
 *  {
     box-sizing: border-box
 }
@@ -29,6 +31,7 @@ a  {
     text-decoration: none
 }
 
+/* Cabeçalho: reúne a marca, a navegação e os controles principais. */
 .barra-superior  {
     height: 74px;
     display: flex;
@@ -79,25 +82,7 @@ a  {
     border-bottom: 2px solid var(--mint-dark)
 }
 
-.indicador-status  {
-    font-size: 11px;
-    font-weight: 700;
-    color: var(--green);
-    border: 1px solid #c7dfcb;
-    border-radius: 99px;
-    padding: 8px 12px;
-    background: #f1faef
-}
-
-.ponto-status  {
-    display: inline-block;
-    width: 7px;
-    height: 7px;
-    background: #74c861;
-    border-radius: 50%;
-    margin-right: 6px
-}
-
+/* Apresentação: divide a mensagem inicial e o scanner em duas colunas. */
 .apresentacao  {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -108,6 +93,7 @@ a  {
     padding: 100px 6vw 94px
 }
 
+/* Rótulos pequenos criam uma hierarquia visual antes dos títulos principais. */
 .rotulo-destaque  {
     font-size: 10px;
     letter-spacing: .18em;
@@ -146,30 +132,7 @@ a  {
     line-height: 1.7
 }
 
-.estatisticas-apresentacao  {
-    display: flex;
-    gap: 40px;
-    margin-top: 46px;
-    padding-top: 25px;
-    border-top: 1px solid var(--line)
-}
-
-.estatisticas-apresentacao div  {
-    display: flex;
-    flex-direction: column;
-    gap: 3px
-}
-
-.estatisticas-apresentacao strong  {
-    font: 600 26px 'Space Grotesk';
-    letter-spacing: -.04em
-}
-
-.estatisticas-apresentacao span  {
-    font-size: 11px;
-    color: var(--muted)
-}
-
+/* Scanner: cartão branco que concentra câmera, ações e aviso de privacidade. */
 .cartao-scanner  {
     background: var(--white);
     border: 1px solid var(--line);
@@ -193,6 +156,7 @@ a  {
     color: var(--mint-dark)
 }
 
+/* Quadro da câmera: mantém vídeo e imagens enviadas dentro de uma área fixa. */
 .quadro-camera  {
     height: 360px;
     border-radius: 11px;
@@ -236,6 +200,7 @@ a  {
     color: var(--muted)
 }
 
+/* Moldura: orienta o usuário a centralizar o objeto sem usar animações. */
 .cantos-leitura  {
     position: absolute;
     inset: 18% 18%;
@@ -264,23 +229,6 @@ a  {
     border-width: 0 3px 3px 0
 }
 
-.linha-leitura  {
-    position: absolute;
-    left: 18%;
-    right: 18%;
-    top: 22%;
-    height: 2px;
-    background: var(--mint);
-    box-shadow: 0 0 14px var(--mint);
-    animation: scan 2.2s infinite alternate
-}
-
-@keyframes scan  {
-    to  {
-        top: 77%
-    }
-}
-
 .indicador-camera  {
     position: absolute;
     bottom: 13px;
@@ -294,6 +242,7 @@ a  {
     letter-spacing: .1em
 }
 
+/* Ações: coloca os botões lado a lado em telas maiores. */
 .acoes-scanner  {
     display: flex;
     gap: 10px
@@ -338,6 +287,7 @@ a  {
     vertical-align: -2px
 }
 
+/* Resultado: área escura reservada para material, confiança e descarte. */
 .secao-resultado  {
     background: var(--green);
     color: white;
@@ -352,6 +302,7 @@ a  {
     margin-bottom: 18px
 }
 
+/* Grade do resultado: distribui as três informações principais do scanner. */
 .grade-resultado  {
     max-width: 1120px;
     margin: auto;
@@ -444,6 +395,7 @@ a  {
     color: var(--mint)
 }
 
+/* Categorias: apresenta o primeiro escopo do classificador de forma simples. */
 .secao-como-funciona  {
     max-width: 1120px;
     margin: auto;
@@ -460,35 +412,45 @@ a  {
     margin: 20px 0
 }
 
-.passos  {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-    padding-top: 20px
-}
-
-.passos article  {
-    border-top: 2px solid var(--line);
-    padding-top: 17px
-}
-
-.numero-passo  {
-    font: 600 12px 'Space Grotesk';
-    color: var(--mint-dark)
-}
-
-.passos h3  {
-    font: 600 21px 'Space Grotesk';
-    margin: 35px 0 9px
-}
-
-.passos p  {
-    font-size: 13px;
-    line-height: 1.6;
+/* Texto auxiliar: explica a finalidade da seção sem competir com o título. */
+.texto-categorias  {
+    max-width: 380px;
     color: var(--muted);
+    font-size: 14px;
+    line-height: 1.7;
     margin: 0
 }
 
+/* Cartão de categorias: destaca a quantidade e lista os materiais iniciais. */
+.cartao-categorias  {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    min-height: 150px;
+    border-top: 2px solid var(--line);
+    border-bottom: 1px solid var(--line);
+    padding: 25px 0
+}
+
+.cartao-categorias strong  {
+    color: var(--mint-dark);
+    font: 600 64px/.9 'Space Grotesk';
+    letter-spacing: -.08em
+}
+
+.cartao-categorias h3  {
+    font: 600 21px 'Space Grotesk';
+    margin: 0 0 8px
+}
+
+.cartao-categorias p  {
+    color: var(--muted);
+    font-size: 13px;
+    line-height: 1.6;
+    margin: 0
+}
+
+/* Sobre: separa a explicação educativa da área operacional do scanner. */
 .secao-sobre  {
     padding: 0 6vw 100px
 }
@@ -520,6 +482,7 @@ a  {
     max-width: 600px
 }
 
+/* Rodapé: encerra a página com identificação e categorias atendidas. */
 footer  {
     border-top: 1px solid var(--line);
     padding: 24px 6vw;
@@ -529,6 +492,7 @@ footer  {
     font-size: 11px
 }
 
+/* Responsividade: reorganiza o conteúdo para telas menores e celulares. */
 @media(max-width:800px)  {
     .barra-superior  {
         padding: 0 5vw
@@ -556,9 +520,6 @@ footer  {
     .secao-como-funciona  {
         grid-template-columns: 1fr;
         gap: 25px
-    }
-    .passos  {
-        gap: 12px
     }
     .cartao-sobre  {
         display: block

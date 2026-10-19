@@ -6,7 +6,6 @@ const elementos = {
   telaCaptura: obterElemento('canvas'),
   quadroCamera: obterElemento('cameraFrame'),
   mensagemCamera: obterElemento('cameraPlaceholder'),
-  linhaLeitura: obterElemento('scanLine'),
   indicadorCamera: obterElemento('cameraBadge'),
   indicadorLeitura: obterElemento('scanStatus'),
   botaoCamera: obterElemento('startCamera'),
@@ -41,11 +40,14 @@ function definirEstadoAnalise(mensagem) {
 
 /** Atualiza os textos e indicadores visuais da câmera. */
 function definirEstadoCamera(estaAtiva) {
+  // O vídeo só fica visível depois que a permissão foi concedida e o fluxo começou.
+  elementos.video.hidden = !estaAtiva;
+  elementos.video.style.display = estaAtiva ? 'block' : 'none';
   elementos.mensagemCamera.hidden = estaAtiva;
+  elementos.mensagemCamera.style.display = estaAtiva ? 'none' : 'flex';
   elementos.indicadorCamera.textContent = estaAtiva ? 'CÂMERA ATIVA' : 'CÂMERA DESATIVADA';
   elementos.indicadorCamera.style.color = estaAtiva ? '#b9f17f' : 'white';
   elementos.indicadorLeitura.textContent = estaAtiva ? 'AO VIVO' : 'AGUARDANDO';
-  elementos.linhaLeitura.hidden = !estaAtiva;
 }
 
 /** Solicita permissão e inicia o vídeo da câmera do dispositivo. */
@@ -56,6 +58,9 @@ async function iniciarCamera() {
   }
 
   try {
+    // Encerra um fluxo anterior antes de solicitar uma nova câmera.
+    fluxoCamera?.getTracks().forEach((faixa) => faixa.stop());
+
     fluxoCamera = await navigator.mediaDevices.getUserMedia({
       video: {
         facingMode: 'environment',
@@ -64,8 +69,18 @@ async function iniciarCamera() {
       audio: false
     });
 
+    // Essas propriedades ajudam o Opera a reproduzir a câmera dentro da página.
+    elementos.video.autoplay = true;
+    elementos.video.muted = true;
+    elementos.video.playsInline = true;
     elementos.video.srcObject = fluxoCamera;
+    elementos.quadroCamera.querySelector('img')?.remove();
     definirEstadoCamera(true);
+
+    // A prévia já foi liberada; a reprodução é iniciada sem bloquear o restante da interface.
+    elementos.video.play().catch((erro) => {
+      console.warn('A prévia foi autorizada, mas o vídeo não iniciou automaticamente:', erro);
+    });
     elementos.botaoCamera.innerHTML = '<span>◉</span> Analisar quadro';
     elementos.botaoCamera.removeEventListener('click', iniciarCamera);
     elementos.botaoCamera.addEventListener('click', analisarQuadro);
@@ -95,7 +110,7 @@ function analisarQuadro() {
  * O resultado desta função será usado depois em `modelo.predict()`.
  */
 function prepararImagem(origemImagem) {
-  definirEstadoAnalise('Imagem preparada e pronta para passar pelo modelo de classificação.');
+  definirEstadoAnalise('Imagem pronta para analisar o material predominante do objeto.');
   elementos.indicadorLeitura.textContent = 'IMAGEM PRONTA';
 
   const bibliotecaOpenCV = window.cv;
@@ -109,7 +124,10 @@ function prepararImagem(origemImagem) {
   bibliotecaOpenCV.resize(
     imagemOriginal,
     imagemRedimensionada,
-    new bibliotecaOpenCV.Size(224, 224)
+    new bibliotecaOpenCV.Size(
+      configuracaoEcoScan.tamanhoImagemModelo.largura,
+      configuracaoEcoScan.tamanhoImagemModelo.altura
+    )
   );
 
   // O tensor do TensorFlow.js será criado aqui na próxima etapa do projeto.

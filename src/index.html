@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="styles/main.css" />
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.22.0/dist/tf.min.js" defer></script>
     <script src="https://docs.opencv.org/4.x/opencv.js" defer></script>
+    <script src="scripts/configuracao.js" defer></script>
     <script src="scripts/main.js" defer></script>
   </head>
   <body>
@@ -24,7 +25,6 @@
         <a href="#como-funciona">Como funciona</a>
         <a href="#sobre">Sobre o projeto</a>
       </nav>
-      <span class="indicador-status"><span class="ponto-status"></span> IA local</span>
     </header>
 
     <main id="inicio">
@@ -32,12 +32,7 @@
         <div class="texto-apresentacao">
           <p class="rotulo-destaque"><span></span> tecnologia para um descarte melhor</p>
           <h1>Descubra onde<br /><em>cada resíduo</em> pertence.</h1>
-          <p class="texto-apresentacao">Aponte a câmera para um objeto e deixe o EcoScan identificar o material predominante em segundos.</p>
-          <div class="estatisticas-apresentacao">
-            <div><strong>05</strong><span>categorias</span></div>
-            <div><strong>100%</strong><span>no navegador</span></div>
-            <div><strong>0</strong><span>envios de imagem</span></div>
-          </div>
+          <p class="texto-apresentacao">Aponte a câmera para um objeto por vez e deixe o EcoScan identificar o material predominante.</p>
         </div>
 
         <div class="cartao-scanner" aria-label="Scanner de materiais">
@@ -47,11 +42,10 @@
             <canvas id="canvas" hidden></canvas>
             <div class="mensagem-camera" id="cameraPlaceholder">
               <div class="icone-mensagem">⌁</div>
-              <strong>Sua câmera está pronta</strong>
-              <span>Posicione um objeto dentro da moldura</span>
+              <strong>Coloque um objeto na moldura</strong>
+              <span>Use boa luz e mantenha o objeto centralizado</span>
             </div>
             <div class="cantos-leitura" aria-hidden="true"></div>
-            <div class="linha-leitura" id="scanLine" hidden></div>
             <div class="indicador-camera" id="cameraBadge">CÂMERA DESATIVADA</div>
           </div>
           <div class="acoes-scanner">
@@ -76,8 +70,8 @@
       </section>
 
       <section class="secao-como-funciona" id="como-funciona">
-        <div><p class="rotulo-destaque"><span></span> simples por natureza</p><h2>Do objeto ao descarte<br /><em>em três passos.</em></h2></div>
-        <div class="passos"><article><span class="numero-passo">01</span><h3>Aponte</h3><p>Enquadre o objeto com boa luz e mantenha-o dentro da moldura.</p></article><article><span class="numero-passo">02</span><h3>Analise</h3><p>O modelo visual compara textura, brilho, transparência e forma.</p></article><article><span class="numero-passo">03</span><h3>Separe</h3><p>Confira a sugestão de descarte e encaminhe o material corretamente.</p></article></div>
+        <div><p class="rotulo-destaque"><span></span> primeira etapa</p><h2>Cinco materiais<br /><em>para começar.</em></h2><p class="texto-categorias">O EcoScan será preparado para reconhecer o material predominante de cada objeto.</p></div>
+        <div class="cartao-categorias"><strong>05</strong><div><h3>Categorias iniciais</h3><p>Plástico · Metal · Vidro · Papel · Papelão</p></div></div>
       </section>
 
       <section class="secao-sobre" id="sobre"><div class="cartao-sobre"><span class="simbolo-sobre">♻</span><div><p class="rotulo-destaque"><span></span> sobre o ecoscan</p><h2>Tecnologia que ensina<br />a cuidar do <em>futuro.</em></h2><p>O EcoScan é um projeto educativo de visão computacional para apoiar a separação inicial de resíduos. A classificação é uma estimativa e objetos mistos ou imagens pouco nítidas podem exigir uma nova tentativa.</p></div></div></section>

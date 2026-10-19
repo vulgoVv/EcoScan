@@ -1,0 +1,11 @@
+{
+  // Estas extensões são recomendadas para manter o desenvolvimento do EcoScan organizado.
+  "recommendations": [
+    // Cria um servidor local para testar a câmera pelo navegador.
+    "ritwickdey.liveserver",
+    // Analisa o JavaScript e aponta problemas antes da execução.
+    "dbaeumer.vscode-eslint",
+    // Formata automaticamente HTML, CSS e JavaScript.
+    "esbenp.prettier-vscode"
+  ]
+}

@@ -6,12 +6,21 @@ Aplicação web de visão computacional para identificação de materiais recicl
 
 ```text
 EcoScan/
+├── dados/
+│   ├── treinamento/
+│   ├── validacao/
+│   ├── teste/
+│   └── README.md
 ├── docs/
-│   └── plano-desenvolvimento.md
+│   ├── o-que-ja-foi-feito.md
+│   ├── base-relatorio-etapa-1.md
+│   ├── plano-desenvolvimento.md
+│   └── proximas-etapas.md
 ├── src/
 │   ├── assets/
 │   ├── index.html
 │   ├── scripts/
+│   │   ├── configuracao.js
 │   │   └── main.js
 │   └── styles/
 │       └── main.css
