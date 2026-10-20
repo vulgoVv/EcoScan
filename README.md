@@ -11,11 +11,6 @@ EcoScan/
 │   ├── validacao/
 │   ├── teste/
 │   └── README.md
-├── docs/
-│   ├── o-que-ja-foi-feito.md
-│   ├── base-relatorio-etapa-1.md
-│   ├── plano-desenvolvimento.md
-│   └── proximas-etapas.md
 ├── src/
 │   ├── assets/
 │   ├── index.html
