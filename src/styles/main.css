@@ -173,6 +173,45 @@ a  {
     object-fit: cover
 }
 
+/* Analise: mostra uma camada simples enquanto o modelo prepara o resultado. */
+.quadro-camera.analisando::before  {
+    content: 'Analisando...';
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-top: 70px;
+    color: white;
+    background: #172c24b8;
+    font: 600 15px 'Space Grotesk';
+    letter-spacing: .03em
+}
+
+/* O circulo girando informa que a analise ainda esta acontecendo. */
+.quadro-camera.analisando::after  {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 4;
+    width: 30px;
+    height: 30px;
+    margin: -25px 0 0 -15px;
+    border: 3px solid #ffffff66;
+    border-top-color: var(--mint);
+    border-radius: 50%;
+    animation: girar-indicador 800ms linear infinite
+}
+
+/* Faz o indicador girar sem movimentar o restante da pagina. */
+@keyframes girar-indicador {
+    to {
+        transform: rotate(360deg)
+    }
+}
+
 .mensagem-camera  {
     position: absolute;
     inset: 0;
@@ -205,7 +244,8 @@ a  {
     position: absolute;
     inset: 18% 18%;
     border: 1px solid #fff8;
-    border-radius: 10px
+    border-radius: 10px;
+    z-index: 5
 }
 
 .cantos-leitura:before,
@@ -239,7 +279,8 @@ a  {
     padding: 7px 10px;
     font-size: 9px;
     font-weight: 700;
-    letter-spacing: .1em
+    letter-spacing: .1em;
+    z-index: 6
 }
 
 /* Ações: coloca os botões lado a lado em telas maiores. */
