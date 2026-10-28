@@ -19,7 +19,8 @@ O projeto já possui:
 - aviso quando a confiança fica abaixo do limite definido;
 - sugestão inicial de descarte;
 - comentários didáticos no código;
-- execução pelo Live Server, sem Node.js e sem npm.
+- execução por qualquer servidor HTTP local;
+- Live Server como uma opção, não como requisito.
 
 O OpenCV.js está previsto para uma etapa futura de preparação das imagens. No código atual, o redimensionamento necessário é feito internamente pelo modelo do Teachable Machine.
 
@@ -85,43 +86,70 @@ O modelo não compara a imagem com uma pasta durante a execução. As imagens us
 
 ## Como executar localmente
 
-### Requisito
+O EcoScan precisa ser aberto por um servidor HTTP local. Isso permite que o navegador carregue os arquivos do modelo e solicite acesso à câmera.
 
-Instale no Visual Studio Code a extensão **Live Server**, de Ritwick Dey.
+Abra o terminal na pasta `src` do projeto. Depois, escolha uma das opções abaixo.
 
-Não é necessário instalar Node.js, npm ou criar um servidor com `npm run dev`.
+### Opção 1: Python
 
-### Passo a passo
+Se o Python estiver instalado, execute:
 
-1. Abra a pasta do projeto no Visual Studio Code:
+```bash
+python -m http.server 8000
+```
 
-   ```text
-   C:\Users\vgabr\Documents\GitHub\EcoScan
-   ```
+Em alguns sistemas, o comando pode ser:
 
-2. Abra a pasta `src`.
+```bash
+python3 -m http.server 8000
+```
 
-3. Clique com o botão direito no arquivo `index.html`.
+Depois, abra no navegador:
 
-4. Escolha **Open with Live Server**.
+```text
+http://localhost:8000
+```
 
-5. O navegador abrirá um endereço parecido com:
+### Opção 2: Node.js
 
-   ```text
-   http://127.0.0.1:5500/src/index.html
-   ```
+Se Node.js estiver instalado, execute:
 
-6. Clique em **Ativar câmera**.
+```bash
+npx http-server -p 8000
+```
 
-7. Permita o acesso à câmera quando o navegador solicitar.
+Depois, abra:
 
-8. Coloque um objeto na moldura e clique em **Analisar quadro**.
+```text
+http://localhost:8000
+```
 
-Também é possível clicar em **Enviar imagem** para testar uma imagem salva no computador.
+Esse comando usa um servidor simples. Não é necessário criar `npm run dev` nem configurar um projeto Node.js.
+
+### Opção 3: Live Server
+
+No Visual Studio Code, a extensão Live Server também pode ser usada:
+
+1. Abra a pasta `src` no editor.
+2. Clique com o botão direito em `index.html`.
+3. Escolha **Open with Live Server**.
+4. Abra o endereço local exibido pela extensão.
+
+O Live Server é apenas uma alternativa prática. Python e Node.js também funcionam.
+
+### Usar o EcoScan
+
+1. Abra o endereço local no navegador.
+2. Clique em **Ativar câmera**.
+3. Permita o acesso à câmera.
+4. Coloque um objeto por vez no centro da moldura.
+5. Clique em **Analisar quadro**.
+
+Também é possível clicar em **Enviar imagem** para escolher uma imagem salva no computador.
 
 ## Se a câmera não aparecer
 
-- Verifique se a página foi aberta pelo Live Server.
+- Verifique se a página foi aberta por um servidor HTTP local.
 - Não abra o arquivo usando duplo clique, começando com `file:///`.
 - Confirme a permissão da câmera no navegador.
 - Feche outros programas que estejam usando a câmera.
