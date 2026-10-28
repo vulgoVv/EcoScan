@@ -18,7 +18,16 @@ const elementos = {
   barraConfianca: obterElemento('confidenceBar'),
   mensagemConfianca: obterElemento('confidenceHint'),
   descarteSugerido: obterElemento('disposalValue'),
-  mensagemDescarte: obterElemento('disposalHint')
+  mensagemDescarte: obterElemento('disposalHint'),
+  painelCorrecao: obterElemento('correctionPanel'),
+  sugestaoCorrecao: obterElemento('correctionSuggestion'),
+  mensagemSugestaoCorrecao: obterElemento('correctionSuggestionText'),
+  botaoAplicarCorrecao: obterElemento('applyCorrection'),
+  classeCorreta: obterElemento('correctionClass'),
+  botaoSalvarCorrecao: obterElemento('saveCorrection'),
+  botaoLimparCorrecoes: obterElemento('clearCorrections'),
+  mensagemCorrecoes: obterElemento('correctionMessage'),
+  quantidadeCorrecoes: obterElemento('correctionCount')
 };
 
 // Guarda o fluxo da camera enquanto ela estiver ativo.
@@ -29,6 +38,12 @@ let enderecoImagemSelecionada = null;
 
 // Guarda o modelo exportado pelo Teachable Machine depois que ele for carregado.
 let modeloEcoScan = null;
+
+// Guarda as probabilidades da última previsão para poder registrar uma correção.
+let previsoesOriginaisAtuais = null;
+
+// Guarda uma correção parecida para pedir confirmação antes de aplicá-la.
+let correcaoSugeridaAtual = null;
 
 // Identifica cada análise para impedir que uma resposta antiga sobrescreva a nova.
 let identificadorAnaliseAtual = 0;
@@ -152,6 +167,11 @@ function prepararImagem(origemImagem) {
   }
 
   definirEstadoAnalise('Analisando o material predominante do objeto...');
+  elementos.painelCorrecao.hidden = true;
+  elementos.sugestaoCorrecao.hidden = true;
+  elementos.mensagemCorrecoes.textContent = 'As correções ficam nesta aba e não salvam as fotos.';
+  previsoesOriginaisAtuais = null;
+  correcaoSugeridaAtual = null;
   // Mostra uma camada de analise para dar retorno visual imediato ao usuario.
   elementos.quadroCamera.classList.add('analisando');
   elementos.indicadorLeitura.textContent = 'ANALISANDO';
@@ -186,7 +206,23 @@ async function analisarImagem(imagem, identificadorAnalise) {
       atual.probability > maior.probability ? atual : maior
     ));
 
+    // Guarda a saída original, pois a correção deve comparar previsões do modelo.
+    previsoesOriginaisAtuais = previsoes.map((item) => ({ ...item }));
+
+    // A memória sugere correções parecidas, mas não muda o resultado sozinha.
+    const correcao = window.memoriaCorrecoes.encontrar(previsoes);
+    correcaoSugeridaAtual = correcao?.classeCorreta !== previsao.className ? correcao : null;
     exibirResultado(previsao.className, previsao.probability);
+
+    // Mostra os controles só depois que existe uma previsão que pode ser corrigida.
+    elementos.classeCorreta.value = '';
+    elementos.painelCorrecao.hidden = false;
+    elementos.sugestaoCorrecao.hidden = !correcaoSugeridaAtual;
+    if (correcaoSugeridaAtual) {
+      const classeSugerida = normalizarNomeMaterial(correcaoSugeridaAtual.classeCorreta);
+      elementos.mensagemSugestaoCorrecao.textContent = `Você corrigiu uma previsão parecida para ${classeSugerida}. Confira antes de aplicar.`;
+    }
+    atualizarContagemCorrecoes();
   } catch (erro) {
     // Uma análise antiga não deve alterar o resultado mais recente da tela.
     if (identificadorAnalise !== identificadorAnaliseAtual) {
@@ -219,13 +255,13 @@ function normalizarNomeMaterial(nomeClasse) {
 }
 
 // Mostra o resultado, a confianca e uma sugestao simples de descarte.
-function exibirResultado(nomeClasse, probabilidade) {
+function exibirResultado(nomeClasse, probabilidade, foiCorrigidoNaSessao = false) {
   // Retira a camada de analise antes de mostrar o resultado final.
   elementos.quadroCamera.classList.remove('analisando');
   const nomeMaterial = normalizarNomeMaterial(nomeClasse);
   const porcentagem = Math.round(probabilidade * 100);
   const confiancaMinima = configuracaoEcoScan.confiancaMinima;
-  const resultadoSeguro = probabilidade >= confiancaMinima;
+  const resultadoSeguro = probabilidade >= confiancaMinima || foiCorrigidoNaSessao;
   const descartes = {
     plastico: 'Coleta de plastico',
     metal: 'Coleta de metal',
@@ -237,20 +273,99 @@ function exibirResultado(nomeClasse, probabilidade) {
   elementos.indicadorLeitura.textContent = 'CONCLUIDO';
   elementos.iconeMaterial.textContent = resultadoSeguro ? '✓' : '?';
   elementos.nomeMaterial.textContent = resultadoSeguro ? nomeMaterial : 'Resultado incerto';
-  elementos.mensagemMaterial.textContent = resultadoSeguro
-    ? 'Material predominante identificado.'
-    : 'A confianca ficou baixa. Tente aproximar o objeto e melhorar a iluminacao.';
+  elementos.mensagemMaterial.textContent = foiCorrigidoNaSessao
+    ? 'Resultado ajustado com uma correção desta sessão.'
+    : resultadoSeguro
+      ? 'Material predominante identificado.'
+      : 'A confianca ficou baixa. Tente aproximar o objeto e melhorar a iluminacao.';
+  // A porcentagem continua sendo a pontuação original do modelo para a classe exibida.
   elementos.valorConfianca.textContent = `${porcentagem}%`;
   elementos.barraConfianca.style.width = `${porcentagem}%`;
-  elementos.mensagemConfianca.textContent = resultadoSeguro
-    ? 'Resultado acima do limite minimo de confianca.'
-    : 'Resultado abaixo do limite minimo de 70%.';
+  elementos.mensagemConfianca.textContent = foiCorrigidoNaSessao
+    ? 'Pontuação do modelo para a classe corrigida; ajuste da sessão aplicado.'
+    : resultadoSeguro
+      ? 'Resultado acima do limite minimo de confianca.'
+      : 'Resultado abaixo do limite minimo de 70%.';
   elementos.descarteSugerido.textContent = resultadoSeguro
     ? descartes[nomeClasse.toLowerCase()] ?? 'Consulte a coleta da sua regiao'
     : 'Tente uma nova imagem';
   elementos.mensagemDescarte.textContent = resultadoSeguro
     ? 'Confirme as regras de coleta da sua cidade.'
     : 'O descarte so sera sugerido com mais seguranca.';
+}
+
+// Atualiza a quantidade de correções guardadas nesta aba.
+function atualizarContagemCorrecoes() {
+  const quantidade = window.memoriaCorrecoes.contar();
+  elementos.quantidadeCorrecoes.textContent = `${quantidade} ${quantidade === 1 ? 'correção' : 'correções'} nesta sessão`;
+}
+
+// Salva a classe escolhida junto das probabilidades da última análise.
+function salvarCorrecaoAtual() {
+  if (!previsoesOriginaisAtuais) {
+    elementos.mensagemCorrecoes.textContent = 'Faça uma análise antes de salvar uma correção.';
+    return;
+  }
+
+  const classeCorreta = elementos.classeCorreta.value;
+
+  if (!classeCorreta) {
+    elementos.mensagemCorrecoes.textContent = 'Escolha o material correto para salvar a correção.';
+    return;
+  }
+
+  const resultado = window.memoriaCorrecoes.adicionar(
+    previsoesOriginaisAtuais,
+    classeCorreta
+  );
+  correcaoSugeridaAtual = null;
+  elementos.sugestaoCorrecao.hidden = true;
+
+  // Atualiza o resultado na tela para confirmar a classe que acabou de ser corrigida.
+  const previsaoDaClasseCorreta = previsoesOriginaisAtuais.find((previsao) => (
+    previsao.className === classeCorreta
+  ));
+  exibirResultado(classeCorreta, previsaoDaClasseCorreta?.probability ?? 0, true);
+
+  elementos.mensagemCorrecoes.textContent = resultado.persistida
+    ? 'Correção salva nesta aba. As fotos não foram guardadas.'
+    : 'Correção ativa até atualizar ou fechar esta página; o navegador não permitiu salvá-la na sessão.';
+  atualizarContagemCorrecoes();
+}
+
+// Aplica uma sugestão somente depois que a pessoa confirma que ela serve para esta imagem.
+function aplicarCorrecaoSugerida() {
+  if (!correcaoSugeridaAtual || !previsoesOriginaisAtuais) {
+    return;
+  }
+
+  const classeSugerida = correcaoSugeridaAtual.classeCorreta;
+  const previsaoDaClasseSugerida = previsoesOriginaisAtuais.find((previsao) => (
+    previsao.className === classeSugerida
+  ));
+
+  exibirResultado(classeSugerida, previsaoDaClasseSugerida?.probability ?? 0, true);
+  elementos.mensagemCorrecoes.textContent = 'Sugestão da sessão aplicada a esta análise.';
+  elementos.sugestaoCorrecao.hidden = true;
+  correcaoSugeridaAtual = null;
+}
+
+// Apaga as correções da sessão para permitir repetir o teste do início.
+function limparCorrecoesDaSessao() {
+  window.memoriaCorrecoes.limpar();
+  correcaoSugeridaAtual = null;
+  elementos.sugestaoCorrecao.hidden = true;
+
+  // Ao limpar a memória, volta a mostrar a previsão original da imagem atual.
+  if (previsoesOriginaisAtuais?.length) {
+    const previsaoOriginal = previsoesOriginaisAtuais.reduce((maior, atual) => (
+      atual.probability > maior.probability ? atual : maior
+    ));
+    exibirResultado(previsaoOriginal.className, previsaoOriginal.probability);
+  }
+
+  elementos.mensagemCorrecoes.textContent = 'Correções apagadas. As próximas análises usarão o modelo original.';
+  atualizarContagemCorrecoes();
 }
 
 // Exibe a imagem enviada pelo usuario dentro do quadro da camera.
@@ -292,6 +407,9 @@ function tratarImagemSelecionada(evento) {
 function configurarEventos() {
   elementos.botaoCamera.addEventListener('click', iniciarCamera);
   elementos.campoImagem.addEventListener('change', tratarImagemSelecionada);
+  elementos.botaoSalvarCorrecao.addEventListener('click', salvarCorrecaoAtual);
+  elementos.botaoLimparCorrecoes.addEventListener('click', limparCorrecoesDaSessao);
+  elementos.botaoAplicarCorrecao.addEventListener('click', aplicarCorrecaoSugerida);
   window.addEventListener('beforeunload', encerrarCamera);
 }
 
@@ -321,6 +439,9 @@ function encerrarCamera() {
 
 // Configura os eventos assim que o arquivo JavaScript e carregado.
 configurarEventos();
+
+// Mostra as correções que ainda existem nesta aba quando a página é recarregada.
+atualizarContagemCorrecoes();
 
 // Aguarda as bibliotecas externas e carrega o modelo exportado.
 window.addEventListener('load', () => {

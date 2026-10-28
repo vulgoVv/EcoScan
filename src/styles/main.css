@@ -436,6 +436,116 @@ a  {
     color: var(--mint)
 }
 
+/* Correções: reaproveita as cores do resultado e organiza os controles em uma linha. */
+.painel-correcao  {
+    max-width: 1120px;
+    margin: 28px auto 0;
+    padding-top: 20px;
+    border-top: 1px solid #527761;
+    display: flex;
+    align-items: end;
+    flex-wrap: wrap;
+    gap: 12px
+}
+
+/* Esconde o painel até que exista uma análise para corrigir. */
+.painel-correcao[hidden]  {
+    display: none
+}
+
+.texto-correcao  {
+    display: flex;
+    flex: 1 1 230px;
+    flex-direction: column;
+    gap: 5px;
+    align-self: center
+}
+
+.texto-correcao strong  {
+    font: 600 15px 'Space Grotesk';
+    color: white
+}
+
+.texto-correcao span,
+.estado-correcoes  {
+    color: #bcd3c3;
+    font-size: 11px;
+    line-height: 1.5
+}
+
+/* Sugestão: destaca a correção parecida e espera a confirmação antes de usá-la. */
+.sugestao-correcao  {
+    display: flex;
+    flex: 1 1 100%;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+    padding: 12px;
+    border: 1px solid #527761;
+    border-radius: 8px;
+    background: #ffffff0a;
+    color: #e4efe7;
+    font-size: 12px;
+    line-height: 1.5
+}
+
+/* Mantém a sugestão escondida quando não há correção semelhante nesta sessão. */
+.sugestao-correcao[hidden]  {
+    display: none
+}
+
+.sugestao-correcao .botao-secundario  {
+    flex: 0 0 auto;
+    white-space: nowrap
+}
+
+.campo-correcao  {
+    display: flex;
+    flex: 0 1 180px;
+    flex-direction: column;
+    gap: 5px;
+    color: #bcd3c3;
+    font-size: 10px;
+    font-weight: 700
+}
+
+.campo-correcao select  {
+    min-height: 42px;
+    padding: 0 12px;
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    background: white;
+    color: var(--ink);
+    font: 500 12px 'DM Sans'
+}
+
+.botao-salvar-correcao  {
+    flex: 0 1 150px;
+    min-height: 42px;
+    background: #edf5ec
+}
+
+.estado-correcoes  {
+    display: flex;
+    flex: 1 1 100%;
+    justify-content: space-between;
+    gap: 12px
+}
+
+.botao-limpar-correcoes  {
+    border: 0;
+    padding: 5px 0;
+    background: transparent;
+    color: #bcd3c3;
+    font: 500 11px 'DM Sans';
+    text-decoration: underline;
+    cursor: pointer
+}
+
+.botao-limpar-correcoes:hover  {
+    color: white
+}
+
 /* Categorias: apresenta o primeiro escopo do classificador de forma simples. */
 .secao-como-funciona  {
     max-width: 1120px;
@@ -552,6 +662,10 @@ footer  {
     .grade-resultado  {
         grid-template-columns: 1fr;
         gap: 25px
+    }
+    .sugestao-correcao  {
+        align-items: stretch;
+        flex-direction: column
     }
     .descarte  {
         border-left: 0;

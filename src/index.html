@@ -13,6 +13,8 @@
     <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8.4/dist/teachablemachine-image.min.js" defer></script>
     <script src="https://docs.opencv.org/4.x/opencv.js" defer></script>
     <script src="scripts/configuracao.js" defer></script>
+    <!-- Carrega a memória temporária antes do fluxo principal de análises. -->
+    <script src="scripts/memoria-correcoes.js" defer></script>
     <script src="scripts/main.js" defer></script>
   </head>
   <body>
@@ -68,6 +70,35 @@
           <div class="confianca"><div class="cabecalho-confianca"><span>CONFIANÇA</span><strong id="confidenceValue">—</strong></div><div class="barra-progresso"><span id="confidenceBar"></span></div><small id="confidenceHint">Nenhuma análise realizada</small></div>
           <div class="descarte"><span class="rotulo-descarte">DESCARTE SUGERIDO</span><strong id="disposalValue">—</strong><span id="disposalHint">O resultado aparecerá aqui</span></div>
         </div>
+        <!-- Permite informar a classe correta sem enviar ou guardar a foto. -->
+        <div class="painel-correcao" id="correctionPanel" hidden>
+          <div class="texto-correcao">
+            <strong>O resultado saiu errado?</strong>
+            <span>Corrija para o EcoScan usar essa informação nesta sessão.</span>
+          </div>
+          <div class="sugestao-correcao" id="correctionSuggestion" hidden>
+            <span id="correctionSuggestionText"></span>
+            <button class="botao-secundario" id="applyCorrection" type="button">Usar esta correção</button>
+          </div>
+          <label class="campo-correcao" for="correctionClass">
+            <span>Material correto</span>
+            <select id="correctionClass">
+              <option value="">Escolha o material</option>
+              <option value="plastico">Plástico</option>
+              <option value="metal">Metal</option>
+              <option value="vidro">Vidro</option>
+              <option value="papel">Papel</option>
+              <option value="papelao">Papelão</option>
+            </select>
+          </label>
+          <button class="botao-secundario botao-salvar-correcao" id="saveCorrection" type="button">Salvar correção</button>
+          <div class="estado-correcoes">
+            <span id="correctionMessage" role="status">As correções ficam nesta aba e não salvam as fotos.</span>
+            <span id="correctionCount">0 correções nesta sessão</span>
+          </div>
+          <button class="botao-limpar-correcoes" id="clearCorrections" type="button">Limpar correções</button>
+        </div>
+
       </section>
 
       <section class="secao-como-funciona" id="como-funciona">
