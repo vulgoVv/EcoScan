@@ -1,690 +1,694 @@
 /* Variáveis globais: centralizam as cores para facilitar futuras alterações visuais. */
-:root  {
-    --ink: #15221d;
-    --muted: #6b7a72;
-    --line: #dce4df;
-    --paper: #f5f8f5;
-    --mint: #b9f17f;
-    --mint-dark: #79b95c;
-    --green: #174d39;
-    --white: #fff
+:root {
+  --ink: #15221d;
+  --muted: #6b7a72;
+  --line: #dce4df;
+  --paper: #f5f8f5;
+  --mint: #b9f17f;
+  --mint-dark: #79b95c;
+  --green: #174d39;
+  --white: #fff;
 }
 
 /* Garante que largura e altura dos elementos incluam bordas e espaçamentos. */
-*  {
-    box-sizing: border-box
+* {
+  box-sizing: border-box;
 }
 
-html  {
-    scroll-behavior: smooth
+html {
+  scroll-behavior: smooth;
 }
 
-body  {
-    margin: 0;
-    background: var(--paper);
-    color: var(--ink);
-    font-family: 'DM Sans', sans-serif
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: "DM Sans", sans-serif;
 }
 
-a  {
-    color: inherit;
-    text-decoration: none
+a {
+  color: inherit;
+  text-decoration: none;
 }
 
 /* Cabeçalho: reúne a marca, a navegação e os controles principais. */
-.barra-superior  {
-    height: 74px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 6vw;
-    border-bottom: 1px solid var(--line);
-    background: #f8faf8
+.barra-superior {
+  height: 74px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 6vw;
+  border-bottom: 1px solid var(--line);
+  background: #f8faf8;
 }
 
-.marca  {
-    display: flex;
-    align-items: center;
-    gap: 9px;
-    font: 700 21px 'Space Grotesk', sans-serif;
-    letter-spacing: -.06em
+.marca {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font:
+    700 21px "Space Grotesk",
+    sans-serif;
+  letter-spacing: -0.06em;
 }
 
-.marca span span  {
-    color: var(--mint-dark)
+.marca span span {
+  color: var(--mint-dark);
 }
 
-.simbolo-marca  {
-    display: grid;
-    place-items: center;
-    width: 28px;
-    height: 28px;
-    border-radius: 9px;
-    background: var(--green);
-    color: var(--mint);
-    font-size: 18px
+.simbolo-marca {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 9px;
+  background: var(--green);
+  color: var(--mint);
+  font-size: 18px;
 }
 
-.navegacao  {
-    display: flex;
-    gap: 34px;
-    font-size: 13px;
-    color: var(--muted)
+.navegacao {
+  display: flex;
+  gap: 34px;
+  font-size: 13px;
+  color: var(--muted);
 }
 
-.navegacao a  {
-    padding: 10px 0
+.navegacao a {
+  padding: 10px 0;
 }
 
-.navegacao .active  {
-    color: var(--ink);
-    font-weight: 700;
-    border-bottom: 2px solid var(--mint-dark)
+.navegacao .active {
+  color: var(--ink);
+  font-weight: 700;
+  border-bottom: 2px solid var(--mint-dark);
 }
 
 /* Apresentação: divide a mensagem inicial e o scanner em duas colunas. */
-.apresentacao  {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 8vw;
-    align-items: center;
-    max-width: 1240px;
-    margin: 0 auto;
-    padding: 100px 6vw 94px
+.apresentacao {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8vw;
+  align-items: center;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 100px 6vw 94px;
 }
 
 /* Rótulos pequenos criam uma hierarquia visual antes dos títulos principais. */
-.rotulo-destaque  {
-    font-size: 10px;
-    letter-spacing: .18em;
-    text-transform: uppercase;
-    font-weight: 700;
-    color: var(--green);
-    display: flex;
-    align-items: center;
-    gap: 8px
+.rotulo-destaque {
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-weight: 700;
+  color: var(--green);
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
-.rotulo-destaque span  {
-    width: 20px;
-    height: 2px;
-    background: var(--mint-dark);
-    display: inline-block
+.rotulo-destaque span {
+  width: 20px;
+  height: 2px;
+  background: var(--mint-dark);
+  display: inline-block;
 }
 
-.apresentacao h1  {
-    font: 700 clamp(45px, 5.4vw, 78px)/.98 'Space Grotesk', sans-serif;
-    letter-spacing: -.07em;
-    margin: 25px 0 25px
+.apresentacao h1 {
+  font:
+    700 clamp(45px, 5.4vw, 78px)/0.98 "Space Grotesk",
+    sans-serif;
+  letter-spacing: -0.07em;
+  margin: 25px 0 25px;
 }
 
 .apresentacao h1 em,
 .secao-como-funciona h2 em,
-.cartao-sobre h2 em  {
-    font-style: normal;
-    color: var(--mint-dark)
+.cartao-sobre h2 em {
+  font-style: normal;
+  color: var(--mint-dark);
 }
 
-.texto-apresentacao  {
-    max-width: 450px;
-    color: var(--muted);
-    font-size: 16px;
-    line-height: 1.7
+.texto-apresentacao {
+  max-width: 450px;
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1.7;
 }
 
 /* Scanner: cartão branco que concentra câmera, ações e aviso de privacidade. */
-.cartao-scanner  {
-    background: var(--white);
-    border: 1px solid var(--line);
-    border-radius: 16px;
-    padding: 18px;
-    box-shadow: 0 20px 60px #174d3912
+.cartao-scanner {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  padding: 18px;
+  box-shadow: 0 20px 60px #174d3912;
 }
 
 .linha-superior-cartao,
-.cabecalho-confianca  {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: .13em;
-    color: var(--muted)
+.cabecalho-confianca {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+  color: var(--muted);
 }
 
-.linha-superior-cartao span:last-child  {
-    color: var(--mint-dark)
+.linha-superior-cartao span:last-child {
+  color: var(--mint-dark);
 }
 
 /* Quadro da câmera: mantém vídeo e imagens enviadas dentro de uma área fixa. */
-.quadro-camera  {
-    height: 360px;
-    border-radius: 11px;
-    background: #d6ded8;
-    position: relative;
-    overflow: hidden;
-    margin: 17px 0
+.quadro-camera {
+  height: 360px;
+  border-radius: 11px;
+  background: #d6ded8;
+  position: relative;
+  overflow: hidden;
+  margin: 17px 0;
 }
 
 .quadro-camera video,
-.quadro-camera img  {
-    width: 100%;
-    height: 100%;
-    object-fit: cover
+.quadro-camera img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 /* Analise: mostra uma camada simples enquanto o modelo prepara o resultado. */
-.quadro-camera.analisando::before  {
-    content: 'Analisando...';
-    position: absolute;
-    inset: 0;
-    z-index: 3;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding-top: 70px;
-    color: white;
-    background: #172c24b8;
-    font: 600 15px 'Space Grotesk';
-    letter-spacing: .03em
+.quadro-camera.analisando::before {
+  content: "Analisando...";
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 70px;
+  color: white;
+  background: #172c24b8;
+  font: 600 15px "Space Grotesk";
+  letter-spacing: 0.03em;
 }
 
 /* O circulo girando informa que a analise ainda esta acontecendo. */
-.quadro-camera.analisando::after  {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    z-index: 4;
-    width: 30px;
-    height: 30px;
-    margin: -25px 0 0 -15px;
-    border: 3px solid #ffffff66;
-    border-top-color: var(--mint);
-    border-radius: 50%;
-    animation: girar-indicador 800ms linear infinite
+.quadro-camera.analisando::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 4;
+  width: 30px;
+  height: 30px;
+  margin: -25px 0 0 -15px;
+  border: 3px solid #ffffff66;
+  border-top-color: var(--mint);
+  border-radius: 50%;
+  animation: girar-indicador 800ms linear infinite;
 }
 
 /* Faz o indicador girar sem movimentar o restante da pagina. */
 @keyframes girar-indicador {
-    to {
-        transform: rotate(360deg)
-    }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
-.mensagem-camera  {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    color: var(--green);
-    background: radial-gradient(circle at 50% 44%, #edf4e9, #cbd8cf)
+.mensagem-camera {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: var(--green);
+  background: radial-gradient(circle at 50% 44%, #edf4e9, #cbd8cf);
 }
 
-.icone-mensagem  {
-    font-size: 48px;
-    line-height: 1;
-    color: var(--mint-dark)
+.icone-mensagem {
+  font-size: 48px;
+  line-height: 1;
+  color: var(--mint-dark);
 }
 
-.mensagem-camera strong  {
-    font: 600 17px 'Space Grotesk'
+.mensagem-camera strong {
+  font: 600 17px "Space Grotesk";
 }
 
-.mensagem-camera span  {
-    font-size: 12px;
-    color: var(--muted)
+.mensagem-camera span {
+  font-size: 12px;
+  color: var(--muted);
 }
 
 /* Moldura: orienta o usuário a centralizar o objeto sem usar animações. */
-.cantos-leitura  {
-    position: absolute;
-    inset: 18% 18%;
-    border: 1px solid #fff8;
-    border-radius: 10px;
-    z-index: 5
+.cantos-leitura {
+  position: absolute;
+  inset: 18% 18%;
+  border: 1px solid #fff8;
+  border-radius: 10px;
+  z-index: 5;
 }
 
 .cantos-leitura:before,
-.cantos-leitura:after  {
-    content: '';
-    position: absolute;
-    width: 28px;
-    height: 28px;
-    border-color: var(--mint);
-    border-style: solid
+.cantos-leitura:after {
+  content: "";
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  border-color: var(--mint);
+  border-style: solid;
 }
 
-.cantos-leitura:before  {
-    top: -1px;
-    left: -1px;
-    border-width: 3px 0 0 3px
+.cantos-leitura:before {
+  top: -1px;
+  left: -1px;
+  border-width: 3px 0 0 3px;
 }
-.cantos-leitura:after  {
-    bottom: -1px;
-    right: -1px;
-    border-width: 0 3px 3px 0
+.cantos-leitura:after {
+  bottom: -1px;
+  right: -1px;
+  border-width: 0 3px 3px 0;
 }
 
-.indicador-camera  {
-    position: absolute;
-    bottom: 13px;
-    left: 13px;
-    color: white;
-    background: #172c24d9;
-    border-radius: 99px;
-    padding: 7px 10px;
-    font-size: 9px;
-    font-weight: 700;
-    letter-spacing: .1em;
-    z-index: 6
+.indicador-camera {
+  position: absolute;
+  bottom: 13px;
+  left: 13px;
+  color: white;
+  background: #172c24d9;
+  border-radius: 99px;
+  padding: 7px 10px;
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  z-index: 6;
 }
 
 /* Ações: coloca os botões lado a lado em telas maiores. */
-.acoes-scanner  {
-    display: flex;
-    gap: 10px
+.acoes-scanner {
+  display: flex;
+  gap: 10px;
 }
 
 .botao-principal,
-.botao-secundario  {
-    border: 0;
-    border-radius: 8px;
-    padding: 13px 17px;
-    font: 700 12px 'DM Sans';
-    cursor: pointer;
-    text-align: center
+.botao-secundario {
+  border: 0;
+  border-radius: 8px;
+  padding: 13px 17px;
+  font: 700 12px "DM Sans";
+  cursor: pointer;
+  text-align: center;
 }
 
-.botao-principal  {
-    background: var(--green);
-    color: white;
-    flex: 1
+.botao-principal {
+  background: var(--green);
+  color: white;
+  flex: 1;
 }
 
-.botao-principal:hover  {
-    background: #23654a
+.botao-principal:hover {
+  background: #23654a;
 }
 
-.botao-secundario  {
-    background: #edf5ec;
-    color: var(--green);
-    flex: 1
+.botao-secundario {
+  background: #edf5ec;
+  color: var(--green);
+  flex: 1;
 }
 
-.nota-privacidade  {
-    text-align: center;
-    color: var(--muted);
-    font-size: 10px;
-    margin: 14px 0 0
+.nota-privacidade {
+  text-align: center;
+  color: var(--muted);
+  font-size: 10px;
+  margin: 14px 0 0;
 }
 
-.nota-privacidade span  {
-    color: var(--mint-dark);
-    font-size: 15px;
-    vertical-align: -2px
+.nota-privacidade span {
+  color: var(--mint-dark);
+  font-size: 15px;
+  vertical-align: -2px;
 }
 
 /* Resultado: área escura reservada para material, confiança e descarte. */
-.secao-resultado  {
-    background: var(--green);
-    color: white;
-    padding: 32px 6vw
+.secao-resultado {
+  background: var(--green);
+  color: white;
+  padding: 32px 6vw;
 }
 
-.rotulo-secao  {
-    font-size: 10px;
-    letter-spacing: .18em;
-    font-weight: 700;
-    color: #b5cfbc;
-    margin-bottom: 18px
+.rotulo-secao {
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  font-weight: 700;
+  color: #b5cfbc;
+  margin-bottom: 18px;
 }
 
 /* Grade do resultado: distribui as três informações principais do scanner. */
-.grade-resultado  {
-    max-width: 1120px;
-    margin: auto;
-    display: grid;
-    grid-template-columns: 1.2fr 1fr .8fr;
-    gap: 45px;
-    align-items: center
+.grade-resultado {
+  max-width: 1120px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: 1.2fr 1fr 0.8fr;
+  gap: 45px;
+  align-items: center;
 }
 
-.resultado-principal  {
-    display: flex;
-    align-items: center;
-    gap: 17px
+.resultado-principal {
+  display: flex;
+  align-items: center;
+  gap: 17px;
 }
 
-.icone-material  {
-    width: 62px;
-    height: 62px;
-    border-radius: 15px;
-    background: #effadd;
-    color: var(--green);
-    display: grid;
-    place-items: center;
-    font: 700 27px 'Space Grotesk'
+.icone-material {
+  width: 62px;
+  height: 62px;
+  border-radius: 15px;
+  background: #effadd;
+  color: var(--green);
+  display: grid;
+  place-items: center;
+  font: 700 27px "Space Grotesk";
 }
 
 .rotulo-suave,
-.rotulo-descarte  {
-    font-size: 9px;
-    letter-spacing: .15em;
-    color: #a8c4af;
-    margin: 0 0 5px;
-    font-weight: 700
+.rotulo-descarte {
+  font-size: 9px;
+  letter-spacing: 0.15em;
+  color: #a8c4af;
+  margin: 0 0 5px;
+  font-weight: 700;
 }
 
-.resultado-principal h2  {
-    font: 600 28px 'Space Grotesk';
-    margin: 0;
-    letter-spacing: -.04em
+.resultado-principal h2 {
+  font: 600 28px "Space Grotesk";
+  margin: 0;
+  letter-spacing: -0.04em;
 }
 
-.resultado-principal p:last-child  {
-    margin: 5px 0 0;
-    color: #c9d9ce;
-    font-size: 12px
+.resultado-principal p:last-child {
+  margin: 5px 0 0;
+  color: #c9d9ce;
+  font-size: 12px;
 }
 
-.cabecalho-confianca  {
-    color: #a8c4af
+.cabecalho-confianca {
+  color: #a8c4af;
 }
 
-.cabecalho-confianca strong  {
-    font: 600 21px 'Space Grotesk';
-    color: white
+.cabecalho-confianca strong {
+  font: 600 21px "Space Grotesk";
+  color: white;
 }
 
-.barra-progresso  {
-    height: 7px;
-    background: #44725e;
-    border-radius: 20px;
-    margin: 13px 0 8px;
-    overflow: hidden
+.barra-progresso {
+  height: 7px;
+  background: #44725e;
+  border-radius: 20px;
+  margin: 13px 0 8px;
+  overflow: hidden;
 }
 
-.barra-progresso span  {
-    display: block;
-    height: 100%;
-    width: 0;
-    background: var(--mint);
-    border-radius: 20px;
-    transition: width .5s
+.barra-progresso span {
+  display: block;
+  height: 100%;
+  width: 0;
+  background: var(--mint);
+  border-radius: 20px;
+  transition: width 0.5s;
 }
 
 .confianca small,
-.descarte span:last-child  {
-    font-size: 11px;
-    color: #bcd3c3
+.descarte span:last-child {
+  font-size: 11px;
+  color: #bcd3c3;
 }
 
-.descarte  {
-    border-left: 1px solid #527761;
-    padding-left: 28px;
-    display: flex;
-    flex-direction: column;
-    gap: 5px
+.descarte {
+  border-left: 1px solid #527761;
+  padding-left: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
 }
 
-.descarte strong  {
-    font: 600 19px 'Space Grotesk';
-    color: var(--mint)
+.descarte strong {
+  font: 600 19px "Space Grotesk";
+  color: var(--mint);
 }
 
 /* Correções: reaproveita as cores do resultado e organiza os controles em uma linha. */
-.painel-correcao  {
-    max-width: 1120px;
-    margin: 28px auto 0;
-    padding-top: 20px;
-    border-top: 1px solid #527761;
-    display: flex;
-    align-items: end;
-    flex-wrap: wrap;
-    gap: 12px
+.painel-correcao {
+  max-width: 1120px;
+  margin: 28px auto 0;
+  padding-top: 20px;
+  border-top: 1px solid #527761;
+  display: flex;
+  align-items: end;
+  flex-wrap: wrap;
+  gap: 12px;
 }
 
 /* Esconde o painel até que exista uma análise para corrigir. */
-.painel-correcao[hidden]  {
-    display: none
+.painel-correcao[hidden] {
+  display: none;
 }
 
-.texto-correcao  {
-    display: flex;
-    flex: 1 1 230px;
-    flex-direction: column;
-    gap: 5px;
-    align-self: center
+.texto-correcao {
+  display: flex;
+  flex: 1 1 230px;
+  flex-direction: column;
+  gap: 5px;
+  align-self: center;
 }
 
-.texto-correcao strong  {
-    font: 600 15px 'Space Grotesk';
-    color: white
+.texto-correcao strong {
+  font: 600 15px "Space Grotesk";
+  color: white;
 }
 
 .texto-correcao span,
-.estado-correcoes  {
-    color: #bcd3c3;
-    font-size: 11px;
-    line-height: 1.5
+.estado-correcoes {
+  color: #bcd3c3;
+  font-size: 11px;
+  line-height: 1.5;
 }
 
 /* Sugestão: destaca a correção parecida e espera a confirmação antes de usá-la. */
-.sugestao-correcao  {
-    display: flex;
-    flex: 1 1 100%;
-    align-items: center;
-    justify-content: space-between;
-    gap: 14px;
-    padding: 12px;
-    border: 1px solid #527761;
-    border-radius: 8px;
-    background: #ffffff0a;
-    color: #e4efe7;
-    font-size: 12px;
-    line-height: 1.5
+.sugestao-correcao {
+  display: flex;
+  flex: 1 1 100%;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 12px;
+  border: 1px solid #527761;
+  border-radius: 8px;
+  background: #ffffff0a;
+  color: #e4efe7;
+  font-size: 12px;
+  line-height: 1.5;
 }
 
 /* Mantém a sugestão escondida quando não há correção semelhante nesta sessão. */
-.sugestao-correcao[hidden]  {
-    display: none
+.sugestao-correcao[hidden] {
+  display: none;
 }
 
-.sugestao-correcao .botao-secundario  {
-    flex: 0 0 auto;
-    white-space: nowrap
+.sugestao-correcao .botao-secundario {
+  flex: 0 0 auto;
+  white-space: nowrap;
 }
 
-.campo-correcao  {
-    display: flex;
-    flex: 0 1 180px;
-    flex-direction: column;
-    gap: 5px;
-    color: #bcd3c3;
-    font-size: 10px;
-    font-weight: 700
+.campo-correcao {
+  display: flex;
+  flex: 0 1 180px;
+  flex-direction: column;
+  gap: 5px;
+  color: #bcd3c3;
+  font-size: 10px;
+  font-weight: 700;
 }
 
-.campo-correcao select  {
-    min-height: 42px;
-    padding: 0 12px;
-    border: 1px solid var(--line);
-    border-radius: 8px;
-    background: white;
-    color: var(--ink);
-    font: 500 12px 'DM Sans'
+.campo-correcao select {
+  min-height: 42px;
+  padding: 0 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: white;
+  color: var(--ink);
+  font: 500 12px "DM Sans";
 }
 
-.botao-salvar-correcao  {
-    flex: 0 1 150px;
-    min-height: 42px;
-    background: #edf5ec
+.botao-salvar-correcao {
+  flex: 0 1 150px;
+  min-height: 42px;
+  background: #edf5ec;
 }
 
-.estado-correcoes  {
-    display: flex;
-    flex: 1 1 100%;
-    justify-content: space-between;
-    gap: 12px
+.estado-correcoes {
+  display: flex;
+  flex: 1 1 100%;
+  justify-content: space-between;
+  gap: 12px;
 }
 
-.botao-limpar-correcoes  {
-    border: 0;
-    padding: 5px 0;
-    background: transparent;
-    color: #bcd3c3;
-    font: 500 11px 'DM Sans';
-    text-decoration: underline;
-    cursor: pointer
+.botao-limpar-correcoes {
+  border: 0;
+  padding: 5px 0;
+  background: transparent;
+  color: #bcd3c3;
+  font: 500 11px "DM Sans";
+  text-decoration: underline;
+  cursor: pointer;
 }
 
-.botao-limpar-correcoes:hover  {
-    color: white
+.botao-limpar-correcoes:hover {
+  color: white;
 }
 
 /* Categorias: apresenta o primeiro escopo do classificador de forma simples. */
-.secao-como-funciona  {
-    max-width: 1120px;
-    margin: auto;
-    padding: 105px 6vw 110px;
-    display: grid;
-    grid-template-columns: .8fr 1.2fr;
-    gap: 8vw
+.secao-como-funciona {
+  max-width: 1120px;
+  margin: auto;
+  padding: 105px 6vw 110px;
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr;
+  gap: 8vw;
 }
 
 .secao-como-funciona h2,
-.cartao-sobre h2  {
-    font: 600 42px/.98 'Space Grotesk';
-    letter-spacing: -.065em;
-    margin: 20px 0
+.cartao-sobre h2 {
+  font: 600 42px/0.98 "Space Grotesk";
+  letter-spacing: -0.065em;
+  margin: 20px 0;
 }
 
 /* Texto auxiliar: explica a finalidade da seção sem competir com o título. */
-.texto-categorias  {
-    max-width: 380px;
-    color: var(--muted);
-    font-size: 14px;
-    line-height: 1.7;
-    margin: 0
+.texto-categorias {
+  max-width: 380px;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.7;
+  margin: 0;
 }
 
 /* Cartão de categorias: destaca a quantidade e lista os materiais iniciais. */
-.cartao-categorias  {
-    display: flex;
-    align-items: center;
-    gap: 24px;
-    min-height: 150px;
-    border-top: 2px solid var(--line);
-    border-bottom: 1px solid var(--line);
-    padding: 25px 0
+.cartao-categorias {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  min-height: 150px;
+  border-top: 2px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  padding: 25px 0;
 }
 
-.cartao-categorias strong  {
-    color: var(--mint-dark);
-    font: 600 64px/.9 'Space Grotesk';
-    letter-spacing: -.08em
+.cartao-categorias strong {
+  color: var(--mint-dark);
+  font: 600 64px/0.9 "Space Grotesk";
+  letter-spacing: -0.08em;
 }
 
-.cartao-categorias h3  {
-    font: 600 21px 'Space Grotesk';
-    margin: 0 0 8px
+.cartao-categorias h3 {
+  font: 600 21px "Space Grotesk";
+  margin: 0 0 8px;
 }
 
-.cartao-categorias p  {
-    color: var(--muted);
-    font-size: 13px;
-    line-height: 1.6;
-    margin: 0
+.cartao-categorias p {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.6;
+  margin: 0;
 }
 
 /* Sobre: separa a explicação educativa da área operacional do scanner. */
-.secao-sobre  {
-    padding: 0 6vw 100px
+.secao-sobre {
+  padding: 0 6vw 100px;
 }
 
-.cartao-sobre  {
-    max-width: 1120px;
-    margin: auto;
-    border-radius: 18px;
-    padding: 55px 7%;
-    display: flex;
-    gap: 45px;
-    align-items: center;
-    background: #e5f0df
+.cartao-sobre {
+  max-width: 1120px;
+  margin: auto;
+  border-radius: 18px;
+  padding: 55px 7%;
+  display: flex;
+  gap: 45px;
+  align-items: center;
+  background: #e5f0df;
 }
 
-.simbolo-sobre  {
-    font-size: 67px;
-    color: var(--mint-dark)
+.simbolo-sobre {
+  font-size: 67px;
+  color: var(--mint-dark);
 }
 
-.cartao-sobre h2  {
-    margin-top: 12px
+.cartao-sobre h2 {
+  margin-top: 12px;
 }
 
-.cartao-sobre p:last-child  {
-    color: var(--muted);
-    font-size: 14px;
-    line-height: 1.7;
-    max-width: 600px
+.cartao-sobre p:last-child {
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.7;
+  max-width: 600px;
 }
 
 /* Rodapé: encerra a página com identificação e categorias atendidas. */
-footer  {
-    border-top: 1px solid var(--line);
-    padding: 24px 6vw;
-    display: flex;
-    justify-content: space-between;
-    color: var(--muted);
-    font-size: 11px
+footer {
+  border-top: 1px solid var(--line);
+  padding: 24px 6vw;
+  display: flex;
+  justify-content: space-between;
+  color: var(--muted);
+  font-size: 11px;
 }
 
 /* Responsividade: reorganiza o conteúdo para telas menores e celulares. */
-@media(max-width:800px)  {
-    .barra-superior  {
-        padding: 0 5vw
-    }
-    .navegacao  {
-        display: none
-    }
-    .apresentacao  {
-        grid-template-columns: 1fr;
-        padding-top: 65px;
-        gap: 55px
-    }
-    .apresentacao h1  {
-        font-size: 54px
-    }
-    .grade-resultado  {
-        grid-template-columns: 1fr;
-        gap: 25px
-    }
-    .sugestao-correcao  {
-        align-items: stretch;
-        flex-direction: column
-    }
-    .descarte  {
-        border-left: 0;
-        border-top: 1px solid #527761;
-        padding: 20px 0 0
-    }
-    .secao-como-funciona  {
-        grid-template-columns: 1fr;
-        gap: 25px
-    }
-    .cartao-sobre  {
-        display: block
-    }
-    .simbolo-sobre  {
-        display: block;
-        margin-bottom: 25px
-    }
-    footer  {
-        flex-direction: column;
-        gap: 8px
-    }
+@media (max-width: 800px) {
+  .barra-superior {
+    padding: 0 5vw;
+  }
+  .navegacao {
+    display: none;
+  }
+  .apresentacao {
+    grid-template-columns: 1fr;
+    padding-top: 65px;
+    gap: 55px;
+  }
+  .apresentacao h1 {
+    font-size: 54px;
+  }
+  .grade-resultado {
+    grid-template-columns: 1fr;
+    gap: 25px;
+  }
+  .sugestao-correcao {
+    align-items: stretch;
+    flex-direction: column;
+  }
+  .descarte {
+    border-left: 0;
+    border-top: 1px solid #527761;
+    padding: 20px 0 0;
+  }
+  .secao-como-funciona {
+    grid-template-columns: 1fr;
+    gap: 25px;
+  }
+  .cartao-sobre {
+    display: block;
+  }
+  .simbolo-sobre {
+    display: block;
+    margin-bottom: 25px;
+  }
+  footer {
+    flex-direction: column;
+    gap: 8px;
+  }
 }

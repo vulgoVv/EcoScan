@@ -5,11 +5,11 @@ const configuracaoEcoScan = Object.freeze({
 
   // Estas são as cinco categorias que o futuro modelo deverá reconhecer.
   categoriasMateriais: Object.freeze([
-    'plástico',
-    'metal',
-    'vidro',
-    'papel',
-    'papelão'
+    "plástico",
+    "metal",
+    "vidro",
+    "papel",
+    "papelão",
   ]),
 
   // Abaixo deste valor, a aplicação deverá informar que o resultado é incerto.
@@ -18,6 +18,6 @@ const configuracaoEcoScan = Object.freeze({
   // O modelo receberá imagens quadradas com 224 pixels de largura e altura.
   tamanhoImagemModelo: Object.freeze({
     largura: 224,
-    altura: 224
-  })
+    altura: 224,
+  }),
 });

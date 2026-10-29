@@ -1,7 +1,7 @@
 // Guarda apenas as probabilidades e a classe corrigida, sem salvar a imagem.
 window.memoriaCorrecoes = (() => {
   // O sessionStorage mantém esses dados enquanto esta aba estiver aberta.
-  const chaveArmazenamento = 'ecoscan-correcoes-da-sessao';
+  const chaveArmazenamento = "ecoscan-correcoes-da-sessao";
 
   // Limita a memória para que várias correções não ocupem espaço desnecessário.
   const quantidadeMaximaCorrecoes = 50;
@@ -22,15 +22,18 @@ window.memoriaCorrecoes = (() => {
         return [];
       }
 
-      return correcoesSalvas.filter((correcao) => (
-        correcao &&
-        typeof correcao.classeCorreta === 'string' &&
-        correcao.probabilidades &&
-        typeof correcao.probabilidades === 'object'
-      )).slice(-quantidadeMaximaCorrecoes);
+      return correcoesSalvas
+        .filter(
+          (correcao) =>
+            correcao &&
+            typeof correcao.classeCorreta === "string" &&
+            correcao.probabilidades &&
+            typeof correcao.probabilidades === "object",
+        )
+        .slice(-quantidadeMaximaCorrecoes);
     } catch (erro) {
       // Um armazenamento indisponível não impede a memória temporária em JavaScript.
-      console.warn('Não foi possível ler as correções da sessão:', erro);
+      console.warn("Não foi possível ler as correções da sessão:", erro);
       return [];
     }
   }
@@ -42,7 +45,7 @@ window.memoriaCorrecoes = (() => {
       return true;
     } catch (erro) {
       // As correções continuam ativas até a página ser atualizada ou fechada.
-      console.warn('Não foi possível salvar as correções da sessão:', erro);
+      console.warn("Não foi possível salvar as correções da sessão:", erro);
       return false;
     }
   }
@@ -50,7 +53,7 @@ window.memoriaCorrecoes = (() => {
   // Converte a lista do Teachable Machine em um mapa fácil de comparar.
   function criarVetorProbabilidades(previsoes) {
     return Object.fromEntries(
-      previsoes.map((previsao) => [previsao.className, previsao.probability])
+      previsoes.map((previsao) => [previsao.className, previsao.probability]),
     );
   }
 
@@ -68,7 +71,8 @@ window.memoriaCorrecoes = (() => {
     }
 
     const somaDiferencas = classesAtuais.reduce((soma, classe) => {
-      const diferenca = probabilidadesAtuais[classe] - probabilidadesSalvas[classe];
+      const diferenca =
+        probabilidadesAtuais[classe] - probabilidadesSalvas[classe];
       return soma + diferenca ** 2;
     }, 0);
 
@@ -80,9 +84,10 @@ window.memoriaCorrecoes = (() => {
     const probabilidades = criarVetorProbabilidades(previsoes);
 
     // Se esta mesma previsão já foi corrigida, a correção mais recente prevalece.
-    correcoes = correcoes.filter((correcao) => (
-      calcularDistancia(probabilidades, correcao.probabilidades) > 0.001
-    ));
+    correcoes = correcoes.filter(
+      (correcao) =>
+        calcularDistancia(probabilidades, correcao.probabilidades) > 0.001,
+    );
 
     correcoes.push({ probabilidades, classeCorreta });
 
@@ -91,7 +96,7 @@ window.memoriaCorrecoes = (() => {
 
     return {
       quantidade: correcoes.length,
-      persistida: salvarCorrecoes()
+      persistida: salvarCorrecoes(),
     };
   }
 
@@ -105,17 +110,18 @@ window.memoriaCorrecoes = (() => {
     const correcaoMaisProxima = correcoes
       .map((correcao) => ({
         ...correcao,
-        distancia: calcularDistancia(probabilidadesAtuais, correcao.probabilidades)
+        distancia: calcularDistancia(
+          probabilidadesAtuais,
+          correcao.probabilidades,
+        ),
       }))
-      .reduce((maisProxima, atual) => (
-        atual.distancia < maisProxima.distancia ? atual : maisProxima
-      ));
+      .reduce((maisProxima, atual) =>
+        atual.distancia < maisProxima.distancia ? atual : maisProxima,
+      );
 
     // Uma previsão diferente demais não deve herdar uma correção antiga.
-    return (
-      correcaoMaisProxima.distancia <= distanciaMaxima &&
+    return correcaoMaisProxima.distancia <= distanciaMaxima &&
       correcaoMaisProxima.classeCorreta in probabilidadesAtuais
-    )
       ? correcaoMaisProxima
       : null;
   }
@@ -128,7 +134,7 @@ window.memoriaCorrecoes = (() => {
       sessionStorage.removeItem(chaveArmazenamento);
     } catch (erro) {
       // A lista em memória já foi limpa, mesmo se o armazenamento falhar.
-      console.warn('Não foi possível limpar o sessionStorage:', erro);
+      console.warn("Não foi possível limpar o sessionStorage:", erro);
     }
   }
 
@@ -137,6 +143,6 @@ window.memoriaCorrecoes = (() => {
     adicionar: adicionarCorrecao,
     encontrar: encontrarCorrecao,
     limpar: limparCorrecoes,
-    contar: () => correcoes.length
+    contar: () => correcoes.length,
   });
 })();
